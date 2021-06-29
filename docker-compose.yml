@@ -1,0 +1,5 @@
+redis_cluster:
+    image: grokzen/redis-cluster:latest
+    container_name: redis_cluster
+    ports:
+      - '7000-7005:7000-7005'

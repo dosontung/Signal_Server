@@ -1,0 +1,231 @@
+twilio: # Twilio gateway configuration
+  accountId: AC6113d80d17c4db05ac80e3c1ddac9ccb
+  accountToken: e1751eff2d6f0f89503578539e90a332
+  nanpaMessagingServiceSid: 123 # Twilio SID for the messaging service to use for NANPA.
+  messagingServiceSid: 123 # Twilio SID for the message service to use for non-NANPA.
+  verifyServiceSid: 123 # Twilio SID for a Verify service
+  localDomain: 127.0.0.1 # Domain Twilio can connect back to for calls. Should be domain of your service.
+  defaultClientVerificationTexts:
+    ios: 123 # Text to use for the verification message on iOS. Will be passed to String.format with the verification code as argument 1.
+    androidNg: 123 # Text to use for the verification message on android-ng client types. Will be passed to String.format with the verification code as argument 1.
+    android202001: 123 # Text to use for the verification message on android-2020-01 client types. Will be passed to String.format with the verification code as argument 1.
+    android202103: 123 # Text to use for the verification message on android-2021-03 client types. Will be passed to String.format with the verification code as argument 1.
+    generic: 123 # Text to use when the client type is unrecognized. Will be passed to String.format with the verification code as argument 1.
+  regionalClientVerificationTexts: # Map of country codes to custom texts
+    999: # example country code
+      ios: 123
+      androidNg: 123 # Text to use for the verification message on android-ng client types. Will be passed to String.format with the verification code as argument 1.
+      android202001: 123 # Text to use for the verification message on android-2020-01 client types. Will be passed to String.format with the verification code as argument 1.
+      android202103: 123 # Text to use for the verification message on android-2021-03 client types. Will be passed to String.format with the verification code as argument 1.
+      generic: 123 # Text to use when the client type is unrecognized. Will be passed to String.format with the verification code as argument 1.
+      # … all keys from defaultClientVerificationTexts are required
+  androidAppHash: 123 # Hash appended to Android
+  verifyServiceFriendlyName: 123 # Service name used in template. Requires Twilio account rep to enable
+
+push:
+  queueSize: 10 # Size of push pending queue
+
+turn: # TURN server configuration
+  secret: test # TURN server secret
+  uris:
+    - turn:127.0.0.1:3478
+cacheCluster: # Redis server configuration for cache cluster
+  urls:
+    - redis://localhost:7000/
+
+clientPresenceCluster: # Redis server configuration for client presence cluster
+  urls:
+    - redis://localhost:7000/
+
+pubsub: # Redis server configuration for pubsub cluster
+  url: redis://localhost:7000/
+  replicaUrls:
+    - redis://localhost:7000/
+
+pushSchedulerCluster: # Redis server configuration for push scheduler cluster
+  urls:
+    - redis://localhost:7000/
+
+rateLimitersCluster: # Redis server configuration for rate limiters cluster
+  urls:
+    - redis://localhost:7000/
+
+directory:
+  client: # Configuration for interfacing with Contact Discovery Service cluster
+    userAuthenticationTokenSharedSecret: A2 # hex-encoded secret shared with CDS used to generate auth tokens for Signal users
+    userAuthenticationTokenUserIdSecret: A2 # hex-encoded secret shared among Signal-Servers to obscure user phone numbers from CDS
+  sqs:
+    accessKey:  AKIAYOGDMWVEPQL7CV5O    # AWS SQS accessKey
+    accessSecret: giP+XxzPRn8Tyi+A97EpOeYoTMB77q2Ow/rgcjNW # AWS SQS accessSecret
+    queueUrls:      # AWS SQS queue urls
+      - https://sqs.example.com/directory.fifo
+  server: # One or more CDS servers
+    - replicationName:  2              # CDS replication name
+      replicationUrl:     http://localhost          # CDS replication endpoint base url
+      replicationPassword:    2       # CDS replication endpoint password
+      replicationCaCertificate:  123    # CDS replication endpoint TLS certificate trust root
+
+messageCache: # Redis server configuration for message store cache
+  persistDelayMinutes: 10
+
+  cluster:
+    urls:
+      - redis://localhost:7000/
+
+metricsCluster:
+  urls:
+    - redis://localhost:7000/
+
+messageDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+keysDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+accountsDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+  phoneNumberTableName: 0987441656
+
+migrationDeletedAccountsDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+migrationRetryAccountsDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+pushChallengeDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+reportMessageDynamoDb: # DynamoDB table configuration
+  region: ap-southeast-1
+  tableName: test
+
+awsAttachments: # AWS S3 configuration
+  accessKey: AKIAYOGDMWVEPQL7CV5O
+  accessSecret: giP+XxzPRn8Tyi+A97EpOeYoTMB77q2Ow/rgcjNW
+  bucket: tungtestabc
+  region: ap-southeast-1
+
+gcpAttachments: # GCP Storage configuration
+  domain: example.com
+  email: a@gmail.com
+  maxSizeInBytes: 100
+  pathPrefix: /api
+  rsaSigningKey: 231231d
+
+abuseDatabase: # Postgresql database configuration
+  driverClass: org.postgresql.Driver
+  user: test
+  password: 123456
+  url: jdbc:postgresql://127.0.0.1:5432/messagedb
+
+accountsDatabase: # Postgresql database configuration
+  driverClass: org.postgresql.Driver
+  user: test
+  password: 123456
+  url: jdbc:postgresql://127.0.0.1:5432/accountdb
+
+accountDatabaseCrawler:
+  chunkSize: # accounts per run
+  chunkIntervalMs: # time per run
+
+apn: # Apple Push Notifications configuration
+  sandbox: true
+  bundleId: 123
+  keyId: 123
+  teamId: 123
+  signingKey: test
+
+gcm: # GCM Configuration
+  senderId: 123
+  apiKey: test
+
+cdn:
+  accessKey: AKIAYOGDMWVEPQL7CV5O # AWS Access Key ID
+  accessSecret: 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 # AWS Access Secret
+  bucket: tungtestabc # S3 Bucket name
+  region: ap-southeast-1 # AWS region
+
+wavefront: 
+  uri: https://example.wavefront.com
+  batchSize: 1 
+
+datadog:
+  apiKey:  123
+  environment: linux
+
+unidentifiedDelivery:
+  certificate: BZoi8T/eVIoKYR+EMD+ZfAeN3xgXZ3Xgns7I82TMksxU
+  privateKey: EFV5l4QHrZOV6RW8YFlg7cziTEuF3NhK+gtdXxkAIlk=
+  expiresDays: 3650
+
+voiceVerification:
+  url: https://cdn-ca.signal.org/verification/
+  locales:
+    - en
+
+recaptcha:
+  secret: test
+
+storageService:
+  uri: http://localhost
+  userAuthenticationTokenSharedSecret: 1232
+  storageCaCertificate: 12312
+
+backupService:
+  uri: http://localhost
+  userAuthenticationTokenSharedSecret: 1231
+  backupCaCertificate: 123
+
+zkConfig:
+  serverPublic: AG4zPDE72HpAPOma+3+KE0FFz4GNd+tSyUEWaRYoiEhT7vhoc/ZkxtNen/f3XOazM4kAaFgAa3hwO7Zr8w51uw0AjtMX+S2nlStwCEwyySThaXhYkQ9HKWkT5470m1R0aJj4hNAqC3SBolg918yYq0cUVpV+nnGE07DvWl+nmsEBii1lSYpwyB2LhcIvfMsqS4SKtoBoESGBjsS6KshdzhY
+  serverSecret: AKFbasPqAOB+gjegynMnPjv4nVWBufh/gT5mZLA5FDEAy0Dx98bptGodDyxnkxESv94Timwb8vc2Iu4l9dUO8wZIpm6/9h5af5YMacDqE3R2/RW1miWqt1vHQJVx5fzNEDOzwMmwMe0aatyWgS5e8pVFf8li9ZdUqazXWrEcEBMA8BczI0fs9bfJQWkMKAD7aL/FsrDkR1IeZ1vuPJ7tHA2Bx1bzIT1qnKifXF3he6XJv7ZVKxNwLtmbCHoofmxsAPFChoKu3TMVaV11G1sSLxre/9G6O6TB/XMIUaHzMQUKRLKddtQr2wq1/017PrnKqElEoBD/w11cHm5NdiY6RwEsnt4t3abWqBOPQfGQmaIKxXbz0uFjBC2koFKMWv70Cm4zPDE72HpAPOma+3+KE0FFz4GNd+tSyUEWaRYoiEhT7vhoc/ZkxtNen/f3XOazM4kAaFgAa3hwO7Zr8w51uw2jwd7GqAoQUjsgKiiN2jq/jazMm5EcPNkEAHITapJaDnOtSAfvycIzLtH3LbXyw6Mt5mo6aTHedRdSI2ALi2EH4O81iOtocr5hHo7CHR0F/Q0IOvks9f2v/LHBFUPhpEJlvIns6pTTat4pxbf6ChmIr4bTA7D7QA8eQFoQsqhdDAhaksTPoJGT5VFKhXO4nAhYFK2USemd+BrWcoIgWysLJAQkRUxke/x5tFMvhRyO4goIR4WpOWP7QHIXYiK2mwwuT2Z5fA3j6/UpVWR4GuHekMRPguC4TpJdjrgRaPfxAoSfHWzzaz+PhYz0+40AdKP7jRBcLXrs3SL4ohITHF4GhC+Cq/npGMuvcJc3GU7dbPSY4lMotpHoVD9KmUnHVwIAjtMX+S2nlStwCEwyySThaXhYkQ9HKWkT5470m1R0aJj4hNAqC3SBolg918yYq0cUVpV+nnGE07DvWl+nmsEBG5tm7xzBWdho/1e/Fmq5c/68IBdcnTn9RybGgZ3DqwSKLWVJinDIHYuFwi98yypLhIq2gGgRIYGOxLoqyF3OFg
+  enabled: false
+
+appConfig:
+  application: test
+  environment: test
+  configuration: test
+
+remoteConfig:
+  authorizedTokens:
+    - test
+  globalConfig: {sdf: sdf} # keys and values that are given to clients on GET /v1/config
+
+
+paymentsService:
+  userAuthenticationTokenSharedSecret: 213 # hex-encoded 32-byte secret shared with MobileCoin services used to generate auth tokens for Signal users
+  fixerApiKey: /api
+  paymentCurrencies: [123]
+
+torExitNodeList:
+  s3Region: tungtestabc
+  s3Bucket: ap-southeast-1
+  objectKey: 123
+  maxSize: 10
+
+asnTable:
+  s3Region: ap-southeast-1
+  s3Bucket: tungtestabc
+  objectKey: hello
+  maxSize: 1
+
+donation:
+  uri: http://localhost # value
+  apiKey: 23123 # value
+  supportedCurrencies:
+    - 123c # 1st supported currency
+    
+  circuitBreaker:
+    failureRateThreshold: 2 # value
+    ringBufferSizeInHalfOpenState: 2 # value
+    ringBufferSizeInClosedState: 2 # value
+    waitDurationInOpenStateInSeconds: 2 # value
+  retry:
+    maxAttempts: 2 # value
+    waitDuration: 2 # value
